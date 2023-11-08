@@ -12,7 +12,7 @@ export class Rover extends Vehicle implements Movable {
     this.position = position;
   }
 
-  turnLeft(): void {
+  turnRight(): void {
     switch (this.position.direction) {
       case "N":
         this.position.direction = "E";
@@ -33,7 +33,7 @@ export class Rover extends Vehicle implements Movable {
     }
   }
 
-  turnRight(): void {
+  turnLeft(): void {
     switch (this.position.direction) {
       case "N":
         this.position.direction = "W";
