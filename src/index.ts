@@ -14,26 +14,31 @@ import {
   isValidDirectionForInitialRoverLanding,
 } from "./validation/validation";
 import { convertToUpperCase } from "./util/util";
+
 const main = async () => {
   try {
     const maxXCoordinateForPlateau = await getUserInput(
       "Please enter the max x coordinate for the plateau. It should be a positve integer greater than zero. ",
       (input) => isValidMaxCoordinateForPateau(input)
     );
+
     const maxYCoordinateForPlateau = await getUserInput(
       "Please enter the max y coordinate for the plateau. It should be a positve integer greater than zero.  ",
       (input) => isValidMaxCoordinateForPateau(input)
     );
+
     const initialXCoordinateForRover = await getUserInput(
       "Please enter the x coordinate for the rover. It should be an positive integer including zero, however not greater than max X coordinate for the plateau.  ",
       (input) =>
         isValidCoordinateForInitialRoverLanding(input, maxXCoordinateForPlateau)
     );
+
     const initialYCoordinateForRover = await getUserInput(
       "Please enter the y coordinate for the rover. It should be an positive integer including zero, however not greater than max Y coordinate for the plateau. ",
       (input) =>
         isValidCoordinateForInitialRoverLanding(input, maxYCoordinateForPlateau)
     );
+
     const initialDirectionForRover = await getUserInput(
       "Please enter the direction for the rover. Valid values are N, S, W or E only: ",
       (input) => isValidDirectionForInitialRoverLanding(input)
@@ -43,8 +48,9 @@ const main = async () => {
       "Please enter the movement rules for the rover. eg LMMLRMMMM ",
       (input) => isValidMovementRuleString(input)
     );
+
     movementRulesForRover = convertToUpperCase(movementRulesForRover);
-    console.log(movementRulesForRover);
+
     displayUserInput(
       Number(maxXCoordinateForPlateau),
       Number(maxYCoordinateForPlateau),
@@ -59,16 +65,21 @@ const main = async () => {
       y: Number(maxYCoordinateForPlateau),
     };
     const plateau = { coordinates: plateauCoordinates };
+
     const coordinatesForRover = {
       x: Number(initialXCoordinateForRover),
       y: Number(initialYCoordinateForRover),
     };
+
     const positionForRoverToLandInThePlateau = {
       coordinates: coordinatesForRover,
       direction: initialDirectionForRover as Direction,
     };
+
     const rover = new Rover(positionForRoverToLandInThePlateau);
+
     actionMovementRules(movementRulesForRover, plateau, rover);
+
     rover.displayRoverPosition();
   } finally {
     rl.close();
