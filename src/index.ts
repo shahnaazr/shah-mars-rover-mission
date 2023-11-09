@@ -1,3 +1,6 @@
+import { Direction } from "./model/directions";
+import { Rover } from "./model/rover";
+import { actionMovementRules } from "./service/service";
 import {
   getUserInput,
   rl,
@@ -48,6 +51,23 @@ const main = async () => {
       initialDirectionForRover,
       movementRulesForRover
     );
+
+    const plateauCoordinates = {
+      x: Number(maxXCoordinateForPlateau),
+      y: Number(maxYCoordinateForPlateau),
+    };
+    const plateau = { coordinates: plateauCoordinates };
+    const coordinatesForRover = {
+      x: Number(initialXCoordinateForRover),
+      y: Number(initialYCoordinateForRover),
+    };
+    const positionForRoverToLandInThePlateau = {
+      coordinates: coordinatesForRover,
+      direction: initialDirectionForRover as Direction,
+    };
+    const rover = new Rover(positionForRoverToLandInThePlateau);
+    actionMovementRules(movementRulesForRover, plateau, rover);
+    rover.displayRoverPosition();
   } finally {
     rl.close();
   }

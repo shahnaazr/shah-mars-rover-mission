@@ -74,4 +74,10 @@ export class Rover extends Vehicle implements Movable {
         );
     }
   }
+
+  displayRoverPosition(): void {
+    console.log(
+      `the rover position is ${this.position.coordinates.x} ${this.position.coordinates.y} ${this.position.direction}`
+    );
+  }
 }
