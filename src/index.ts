@@ -13,7 +13,7 @@ import {
   isValidCoordinateForInitialRoverLanding,
   isValidDirectionForInitialRoverLanding,
 } from "./validation/validation";
-
+import { convertToUpperCase } from "./util/util";
 const main = async () => {
   try {
     const maxXCoordinateForPlateau = await getUserInput(
@@ -39,10 +39,12 @@ const main = async () => {
       (input) => isValidDirectionForInitialRoverLanding(input)
     );
 
-    const movementRulesForRover = await getUserInput(
+    let movementRulesForRover = await getUserInput(
       "Please enter the movement rules for the rover. eg LMMLRMMMM ",
       (input) => isValidMovementRuleString(input)
     );
+    movementRulesForRover = convertToUpperCase(movementRulesForRover);
+    console.log(movementRulesForRover);
     displayUserInput(
       Number(maxXCoordinateForPlateau),
       Number(maxYCoordinateForPlateau),
